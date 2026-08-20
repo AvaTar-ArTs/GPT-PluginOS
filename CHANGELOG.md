@@ -2,6 +2,17 @@
 
 All notable GPT-PluginOS changes are documented here.
 
+## [Unreleased]
+
+### Added
+
+- Dependency-free static field site under `site/`.
+- Product command-center page with capability-routing policy demos and ecosystem architecture.
+- Advanced-use-cases page covering creator, engineering, research, governance, benchmarks, drift, privacy zones, canaries, shadows, and provenance patterns.
+- Market-and-revenue page covering positioning, service offers, SaaS tiers, distribution channels, data moat, content hooks, and a 90-day commercialization sequence.
+- Shared responsive visual system and lightweight tab interactions.
+- Local preview and static-host deployment notes.
+
 ## [0.1.0] - 2026-08-19
 
 ### Added
