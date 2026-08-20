@@ -1,0 +1,15 @@
+{
+  "version": "0.1.0-demo",
+  "capabilities": [
+    {"id":"media.image.upscale","domain":"media","label":"Image Upscale","description":"Increase resolution and recover useful detail while respecting cost, privacy, and quality policy.","risk":"external_write"},
+    {"id":"media.asset.visual_search","domain":"media","label":"Visual Asset Search","description":"Find visually similar or related assets across a governed media catalog.","risk":"read_only"},
+    {"id":"design.product.audit","domain":"design","label":"Product UX Audit","description":"Evaluate product flows, interaction friction, accessibility, and design quality.","risk":"read_only"},
+    {"id":"research.seo.keyword","domain":"research","label":"SEO Keyword Research","description":"Retrieve structured search-demand and competition signals for content and product strategy.","risk":"read_only"},
+    {"id":"research.academic.search","domain":"research","label":"Academic Research","description":"Search and inspect scholarly literature with source-backed evidence.","risk":"read_only"},
+    {"id":"code.repository.modify","domain":"development","label":"Repository Modification","description":"Change source-controlled files under explicit code-change governance.","risk":"code_change"},
+    {"id":"security.code.scan","domain":"security","label":"Code Security Scan","description":"Review source for validated security issues and attack paths.","risk":"read_only"},
+    {"id":"schedule.event.create","domain":"operations","label":"Create Calendar Event","description":"Create a time-aware project or publishing event after approval policy is satisfied.","risk":"external_write"},
+    {"id":"commerce.payment.manage","domain":"commerce","label":"Manage Payments","description":"Operate payment-related objects under financial controls.","risk":"financial"},
+    {"id":"provenance.asset.record","domain":"provenance","label":"Record Asset Provenance","description":"Attach source, provider, policy, execution, lineage, and output evidence to an artifact.","risk":"read_only"}
+  ]
+}
