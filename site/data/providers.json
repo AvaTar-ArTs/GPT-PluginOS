@@ -1,5 +1,5 @@
 {
-  "version": "0.1.0-demo",
+  "version": "0.2.0",
   "providers": [
     {"id":"magnific","name":"Magnific","kind":"remote","category":"media","status":"healthy","cost":4,"latency":2,"privacy":2,"quality":9.6,"risk":"external_write","capabilities":["media.image.upscale","media.image.relight","media.image.enhance"]},
     {"id":"cloudinary","name":"Cloudinary","kind":"remote","category":"media-infrastructure","status":"healthy","cost":2,"latency":4,"privacy":4,"quality":8.8,"risk":"external_write","capabilities":["media.image.upscale","media.asset.upload","media.asset.search","media.asset.visual_search","media.transform.image","media.delivery.cdn"]},
