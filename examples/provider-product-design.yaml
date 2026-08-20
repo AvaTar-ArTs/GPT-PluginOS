@@ -1,0 +1,50 @@
+id: product-design
+kind: plugin
+source:
+  system: gpt-plugs
+  authoritative: true
+  locator: provider/product-design
+lifecycle: connected
+roles:
+  - product_discovery
+  - ux_research_specialist
+capabilities:
+  - design.product.research
+  - design.product.audit
+  - design.product.ideate
+  - design.prototype.generate
+  - design.prototype.qa
+  - design.prototype.share
+actions:
+  - id: research
+    capability: design.product.research
+    risk: read_only
+  - id: audit
+    capability: design.product.audit
+    risk: read_only
+  - id: ideate
+    capability: design.product.ideate
+    risk: external_write
+  - id: prototype.generate
+    capability: design.prototype.generate
+    risk: external_write
+  - id: prototype.share
+    capability: design.prototype.share
+    risk: publication
+routing:
+  provenance_quality: medium
+  latency_class: medium
+  cost_class: medium
+  specialist_score:
+    design.product.audit: 0.98
+    design.product.ideate: 0.96
+handoff:
+  preferred_downstream:
+    - figma
+    - github
+    - vercel
+provenance:
+  supported: true
+notes:
+  - Prefer for product discovery, UX audits, visual exploration, and prototype validation.
+  - Do not route generic marketing design here merely because it belongs to the design category.
