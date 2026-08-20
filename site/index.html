@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="GPT-PluginOS is a federated capability control plane for plugins, MCP, skills, agents, local tools, creative providers, governance, and routing." />
+  <title>GPT-PluginOS | Capability Control Plane</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <nav class="nav">
+    <div class="shell nav-inner">
+      <a class="brand" href="index.html"><span class="brand-mark">◈</span><span>GPT-PluginOS</span></a>
+      <div class="nav-links">
+        <a class="active" href="index.html">Command Center</a>
+        <a href="advanced.html">Advanced Uses</a>
+        <a href="market.html">Market & Revenue</a>
+        <a href="../README.md">Docs</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="shell hero-grid">
+      <div>
+        <div class="kicker">Federated AI Capability Control Plane</div>
+        <h1>One map for a <span class="gradient-text">wild AI ecosystem.</span></h1>
+        <p class="lede">GPT-PluginOS turns plugins, MCP servers, skills, agents, local tools, APIs, creative systems, permissions, benchmarks, and fallbacks into a coherent capability graph that can be inspected, governed, compared, and routed.</p>
+        <div class="pills">
+          <span class="pill">Capability graph</span><span class="pill">Provider intelligence</span><span class="pill">Governance</span><span class="pill">Benchmarks</span><span class="pill">Lockfiles</span><span class="pill">Cross-repo routing</span>
+        </div>
+        <div class="actions">
+          <a class="btn primary" href="advanced.html">Explore advanced workflows</a>
+          <a class="btn" href="market.html">See the business model</a>
+        </div>
+      </div>
+      <div class="hero-orb" aria-label="decorative capability graph">
+        <span class="node n1"></span><span class="node n2"></span><span class="node n3"></span><span class="node n4"></span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="section">
+      <div class="shell">
+        <div class="section-head">
+          <div><div class="kicker">The core idea</div><h2>Plugins are providers. Capabilities are the language.</h2></div>
+          <p>Instead of hard-coding “use Cloudinary” or “use Semrush,” higher-level systems request a capability. PluginOS resolves the best current provider under policy, health, cost, risk, and benchmark constraints.</p>
+        </div>
+        <div class="flow">
+          <div class="flow-step"><strong>Intent</strong><br><span class="small">“Publish a creator campaign”</span></div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step"><strong>Capabilities</strong><br><span class="small">research, design, upscale, archive, publish</span></div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step"><strong>Policy</strong><br><span class="small">risk, privacy, quality, cost</span></div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step"><strong>Providers</strong><br><span class="small">best-fit tools and fallbacks</span></div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step"><strong>Provenance</strong><br><span class="small">what ran, why, and with what result</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <div class="section-head">
+          <div><div class="kicker">Ecosystem treaty</div><h2>Each repo keeps its crown.</h2></div>
+          <p>PluginOS federates your existing systems instead of swallowing them. That keeps the architecture modular and makes every source of truth explicit.</p>
+        </div>
+        <div class="grid cols-4">
+          <article class="card"><div class="icon">🧬</div><h3>SuperSkills</h3><p>Canonical reusable capability contracts, metadata, lifecycle, provenance, and risk semantics.</p></article>
+          <article class="card"><div class="icon">🧠</div><h3>SuperAgents</h3><p>Routing, execution envelopes, approvals, verification, and orchestration runtime.</p></article>
+          <article class="card"><div class="icon">🔌</div><h3>gpt-plugs</h3><p>External provider registry: plugins, actions, permissions, dependencies, lifecycle, and risk.</p></article>
+          <article class="card"><div class="icon">🕸️</div><h3>Content Universe</h3><p>Creative entities, assets, provenance, lineage, recovery, and durable graph intelligence.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell grid cols-3">
+        <article class="card"><span class="badge good">Routing intelligence</span><div class="metric">N → 1</div><h3>Many providers, one capability request</h3><p>Rank specialists, infrastructure fallbacks, local tools, and remote providers without rewriting every workflow.</p></article>
+        <article class="card"><span class="badge warn">Governance</span><div class="metric">Action-level</div><h3>Risk is not one checkbox</h3><p>Read, write, publish, deploy, financial, destructive, and identity-sensitive actions can carry different approval requirements.</p></article>
+        <article class="card"><span class="badge good">Reproducibility</span><div class="metric">Lockfile</div><h3>Freeze the AI toolchain</h3><p>Capture provider versions, source revisions, graph hashes, schema versions, and benchmark snapshots for later diffing.</p></article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <div class="section-head">
+          <div><div class="kicker">Route laboratory</div><h2>Same capability. Different context. Different winner.</h2></div>
+          <p>Provider selection should behave like a decision engine, not a popularity contest.</p>
+        </div>
+        <div class="tabs">
+          <button class="tab active" data-group="route" data-tab="quality">Quality first</button>
+          <button class="tab" data-group="route" data-tab="cost">Cost aware</button>
+          <button class="tab" data-group="route" data-tab="private">Private/local</button>
+        </div>
+        <div class="tab-panel active" data-panel-group="route" data-panel="quality">
+          <div class="code">capability: media.image.upscale
+policy:
+  quality_weight: 0.60
+  provenance_weight: 0.20
+  latency_weight: 0.10
+  cost_weight: 0.10
+ranked:
+  1. magnific       # premium specialist
+  2. cloudinary     # infrastructure transformation
+  3. local-upscaler # privacy-safe fallback</div>
+        </div>
+        <div class="tab-panel" data-panel-group="route" data-panel="cost">
+          <div class="code">capability: media.image.upscale
+policy:
+  max_cost_class: low
+  quality_floor: 0.72
+ranked:
+  1. cloudinary
+  2. local-upscaler
+excluded:
+  - magnific: exceeds cost policy</div>
+        </div>
+        <div class="tab-panel" data-panel-group="route" data-panel="private">
+          <div class="code">capability: media.image.upscale
+policy:
+  data_zone: local_only
+  external_uploads: forbidden
+ranked:
+  1. local-upscaler
+excluded:
+  - cloudinary: remote service
+  - magnific: remote service</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <div class="section-head">
+          <div><div class="kicker">What it can govern</div><h2>A capability fabric, not a plugin drawer.</h2></div>
+          <p>The catalog can span developer, creator, research, operations, commerce, and publishing systems at the same time.</p>
+        </div>
+        <table class="matrix">
+          <thead><tr><th>Domain</th><th>Example capabilities</th><th>Possible providers</th><th>Why PluginOS matters</th></tr></thead>
+          <tbody>
+            <tr><td>Creative media</td><td>generate, edit, upscale, transform, archive</td><td>Magnific, Morphix, Picsart, Cloudinary, local creators</td><td>Specialist routing, lineage, format handoffs</td></tr>
+            <tr><td>Product design</td><td>research, audit, ideate, prototype, QA</td><td>Product Design, Figma, Canva</td><td>Clear upstream/downstream roles</td></tr>
+            <tr><td>Engineering</td><td>modify repo, security scan, deploy, validate</td><td>GitHub, Codex Security, Supabase, Vercel</td><td>Approval separation and reproducible routes</td></tr>
+            <tr><td>Research</td><td>academic, SEO, market, product discovery</td><td>Sider Scholar, Semrush, Product Hunt, web research</td><td>Source quality, freshness, benchmark scoring</td></tr>
+            <tr><td>Operations</td><td>email, scheduling, records, project knowledge</td><td>Gmail, Calendar, Airtable, Notion, Slack</td><td>Time-aware orchestration without duplicate systems</td></tr>
+            <tr><td>Commerce</td><td>payments, offers, product operations</td><td>Stripe and downstream storefronts</td><td>Financial risk gates and auditability</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <div class="callout"><strong>The product thesis:</strong> the code is useful, but the durable moat is the normalized history of providers, capabilities, permissions, migrations, benchmarks, health, and routing outcomes. A router can be copied. Years of ecosystem intelligence cannot.</div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="shell">GPT-PluginOS · AvaTar-ArTs · <span data-year></span> · Built as a federated control plane for a gloriously overpowered AI toolchain.</div>
+  </footer>
+  <script src="app.js"></script>
+</body>
+</html>
