@@ -1,0 +1,13 @@
+[pluginos]
+schema_version = "1"
+default_policy = "balanced"
+read_only = true
+
+[registry]
+provider_source = "bundled"
+capability_source = "bundled"
+policy_source = "bundled"
+
+[governance]
+selection_implies_authorization = false
+external_writes_enabled = false
