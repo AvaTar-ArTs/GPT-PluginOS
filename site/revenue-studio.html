@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Interactive GPT-PluginOS revenue model, services configurator, and SaaS scenario calculator." />
+  <title>GPT-PluginOS Revenue Studio</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="studio.css" />
+</head>
+<body>
+<nav class="nav"><div class="shell nav-inner"><a class="brand" href="index.html"><span class="brand-mark">◈</span><span>GPT-PluginOS</span></a><div class="nav-links"><a href="index.html">Command Center</a><a href="studio.html">Studio</a><a href="advanced.html">Advanced Uses</a><a href="market.html">Market</a><a class="active" href="revenue-studio.html">Revenue Studio</a></div></div></nav>
+<header class="hero"><div class="shell"><div class="kicker">Commercialization Sandbox</div><h1>Turn the control plane into a <span class="gradient-text">revenue engine.</span></h1><p class="lede">Model service work, recurring SaaS, digital products, retainers, and enterprise deals without pretending the forecast is destiny. Adjust the levers and see what combination could fund the product.</p></div></header>
+<main>
+<section class="section"><div class="shell panel-grid two">
+  <article class="work-panel"><div class="panel-head"><div><div class="eyebrow">Scenario inputs</div><h3>Monthly operating model</h3></div></div>
+    <label>Plugin / AI-stack audits per month<input id="audits" type="number" min="0" value="4" /></label>
+    <label>Average audit price ($)<input id="auditPrice" type="number" min="0" value="950" /></label>
+    <label>Implementation projects per month<input id="impls" type="number" min="0" value="1" /></label>
+    <label>Average implementation price ($)<input id="implPrice" type="number" min="0" value="5000" /></label>
+    <label>Paid SaaS customers<input id="saas" type="number" min="0" value="35" /></label>
+    <label>Average SaaS revenue per customer ($/mo)<input id="arpu" type="number" min="0" value="59" /></label>
+    <label>Digital product sales per month<input id="products" type="number" min="0" value="30" /></label>
+    <label>Average digital product price ($)<input id="productPrice" type="number" min="0" value="79" /></label>
+    <label>Retainer clients<input id="retainers" type="number" min="0" value="2" /></label>
+    <label>Average retainer ($/mo)<input id="retainerPrice" type="number" min="0" value="2000" /></label>
+    <label>Enterprise deals per quarter<input id="enterprise" type="number" min="0" step="1" value="1" /></label>
+    <label>Average enterprise deal ($)<input id="enterprisePrice" type="number" min="0" value="15000" /></label>
+  </article>
+  <article class="work-panel"><div class="panel-head"><div><div class="eyebrow">Projection</div><h3>Revenue mix</h3></div><span class="badge good">illustrative model</span></div>
+    <div class="metric-grid">
+      <div class="metric-card"><span>Monthly</span><strong id="monthly">$0</strong></div>
+      <div class="metric-card"><span>Annualized</span><strong id="annual">$0</strong></div>
+      <div class="metric-card"><span>Recurring MRR</span><strong id="mrr">$0</strong></div>
+      <div class="metric-card"><span>Services / mo</span><strong id="services">$0</strong></div>
+    </div>
+    <div id="mix-bars" class="mix-bars"></div>
+    <div class="callout" id="scenario-note"></div>
+  </article>
+</div></section>
+<section class="section"><div class="shell"><div class="section-head"><div><div class="kicker">Offer composer</div><h2>Package the expertise instead of selling hours.</h2></div><p>Select the modules a client needs. The configurator produces a sample scoped offer and launch price range.</p></div>
+<div class="panel-grid two">
+  <article class="work-panel"><div id="offer-options" class="offer-options"></div></article>
+  <article class="work-panel"><div class="panel-head"><div><div class="eyebrow">Generated offer</div><h3 id="offer-name">PluginOS Architecture Sprint</h3></div></div><pre id="offer-output" class="terminal tall"></pre></article>
+</div></div></section>
+<section class="section"><div class="shell"><div class="section-head"><div><div class="kicker">Flywheel</div><h2>Service work should train the product.</h2></div></div><div class="flow"><div class="flow-step"><strong>Audit</strong><br><span class="small">find overlap, risk, gaps</span></div><div class="flow-arrow">→</div><div class="flow-step"><strong>Normalize</strong><br><span class="small">new providers & capabilities</span></div><div class="flow-arrow">→</div><div class="flow-step"><strong>Benchmark</strong><br><span class="small">evidence becomes product data</span></div><div class="flow-arrow">→</div><div class="flow-step"><strong>Automate</strong><br><span class="small">repeatable Cloud features</span></div><div class="flow-arrow">→</div><div class="flow-step"><strong>Recurring</strong><br><span class="small">monitoring, policies, API</span></div></div></div></section>
+</main>
+<script>
+const fmt = n => new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',maximumFractionDigits:0}).format(n||0);
+const ids=['audits','auditPrice','impls','implPrice','saas','arpu','products','productPrice','retainers','retainerPrice','enterprise','enterprisePrice'];
+const val=id=>Number(document.getElementById(id).value||0);
+function recalc(){
+ const audit=val('audits')*val('auditPrice'); const impl=val('impls')*val('implPrice'); const saas=val('saas')*val('arpu'); const products=val('products')*val('productPrice'); const retainers=val('retainers')*val('retainerPrice'); const enterprise=(val('enterprise')*val('enterprisePrice'))/3; const services=audit+impl; const recurring=saas+retainers; const monthly=services+recurring+products+enterprise;
+ document.getElementById('monthly').textContent=fmt(monthly); document.getElementById('annual').textContent=fmt(monthly*12); document.getElementById('mrr').textContent=fmt(recurring); document.getElementById('services').textContent=fmt(services);
+ const parts=[['Services',services],['SaaS + retainers',recurring],['Digital products',products],['Enterprise avg/mo',enterprise]]; const max=Math.max(...parts.map(x=>x[1]),1); document.getElementById('mix-bars').innerHTML=parts.map(([name,n])=>`<div class="mix-row"><div>${name}<strong>${fmt(n)}</strong></div><div class="mix-track"><span style="width:${(n/max)*100}%"></span></div></div>`).join('');
+ const rr=monthly?Math.round((recurring/monthly)*100):0; document.getElementById('scenario-note').innerHTML=`<strong>${rr}% recurring.</strong> Services can finance early development, but the product becomes more durable as monitoring, policies, benchmark history, APIs, and private registries shift the mix toward recurring revenue.`;
+}
+ids.forEach(id=>document.getElementById(id).addEventListener('input',recalc));
+const modules=[
+ ['stack-audit','AI Stack Audit',750,1500,'Inventory providers, overlap, permissions, lifecycle, and capability gaps.'],
+ ['governance','Governance Blueprint',1500,4500,'Risk classes, approval matrix, privacy zones, provenance, and policy inheritance.'],
+ ['benchmark','Benchmark Sprint',1000,5000,'Capability-specific provider evaluation with reproducible fixtures and scorecards.'],
+ ['adapter','Custom Adapter Pack',1500,6000,'Provider manifests, normalization, schemas, tests, and integration contract.'],
+ ['implementation','PluginOS Implementation',3000,12000,'Registry/compiler integration, routes, lockfiles, CI, and operator surfaces.'],
+ ['enterprise','Enterprise Enablement',5000,15000,'Private registry, SSO/RBAC design, audit retention, deployment strategy, and handoff.']
+];
+const opts=document.getElementById('offer-options'); opts.innerHTML=modules.map(([id,name,lo,hi,desc],i)=>`<label class="offer-option"><input type="checkbox" value="${id}" ${i<2?'checked':''}/><span><strong>${name}</strong><small>${desc}</small><em>${fmt(lo)}–${fmt(hi)}</em></span></label>`).join('');
+function buildOffer(){ const chosen=[...opts.querySelectorAll('input:checked')].map(x=>modules.find(m=>m[0]===x.value)); const low=chosen.reduce((a,m)=>a+m[2],0), high=chosen.reduce((a,m)=>a+m[3],0); const name=chosen.length>3?'PluginOS Transformation Program':chosen.length>1?'PluginOS Architecture Sprint':chosen[0]?.[1]||'Custom PluginOS Engagement'; document.getElementById('offer-name').textContent=name; document.getElementById('offer-output').textContent=[`offer: ${name}`,`launch_range: ${fmt(low)} – ${fmt(high)}`,'','includes:',...chosen.map(m=>`  - ${m[1]}: ${m[4]}`),'','delivery_principles:','  - preserve customer source-of-truth systems','  - make provider selection explainable','  - separate selection from authorization','  - emit reusable schemas/fixtures instead of one-off notes','  - convert repeatable work into product capability'].join('\n'); }
+opts.addEventListener('change',buildOffer); recalc(); buildOffer();
+</script>
+<style>.metric-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.metric-card{padding:16px;border-radius:14px;background:#07101d;border:1px solid rgba(148,163,184,.14)}.metric-card span{display:block;color:#8ea1bb;font-size:.75rem;text-transform:uppercase;letter-spacing:.08em}.metric-card strong{display:block;font-size:1.7rem;color:#67e8f9;margin-top:5px}.mix-bars{display:grid;gap:14px;margin:22px 0}.mix-row>div:first-child{display:flex;justify-content:space-between;color:#b9c7d8;font-size:.84rem}.mix-track{height:9px;background:#06101d;border-radius:99px;overflow:hidden;margin-top:6px}.mix-track span{display:block;height:100%;background:linear-gradient(90deg,#22d3ee,#7c3aed,#ec4899);border-radius:99px}.offer-options{display:grid;gap:10px}.offer-option{display:grid!important;grid-template-columns:auto 1fr!important;gap:12px!important;padding:13px!important;margin:0!important;border:1px solid rgba(148,163,184,.13);border-radius:12px;background:#07101d;cursor:pointer}.offer-option input{width:auto!important}.offer-option span{display:grid;grid-template-columns:1fr auto;gap:4px 12px}.offer-option small{grid-column:1/2;color:#8ea1bb}.offer-option em{grid-column:2/3;grid-row:1/3;color:#67e8f9;font-style:normal;align-self:center}@media(max-width:760px){.metric-grid{grid-template-columns:1fr}.offer-option span{grid-template-columns:1fr}.offer-option em{grid-column:1;grid-row:auto}}</style>
+</body></html>
