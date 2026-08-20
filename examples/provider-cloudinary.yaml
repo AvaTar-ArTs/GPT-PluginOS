@@ -1,0 +1,52 @@
+id: cloudinary
+kind: plugin
+source:
+  system: gpt-plugs
+  authoritative: true
+  locator: provider/cloudinary
+lifecycle: connected
+roles:
+  - primary_media_infrastructure
+capabilities:
+  - media.asset.upload
+  - media.asset.search
+  - media.asset.visual_search
+  - media.asset.metadata.update
+  - media.asset.relate
+  - media.transform.image
+  - media.transform.video
+  - media.delivery.cdn
+actions:
+  - id: asset.search
+    capability: media.asset.search
+    risk: read_only
+  - id: asset.upload
+    capability: media.asset.upload
+    risk: external_write
+  - id: asset.update
+    capability: media.asset.metadata.update
+    risk: external_write
+  - id: asset.delete
+    capability: media.asset.delete
+    risk: destructive_write
+routing:
+  provenance_quality: high
+  latency_class: low
+  cost_class: medium
+  specialist_score:
+    media.asset.visual_search: 0.95
+    media.transform.image: 0.86
+outputs:
+  - asset_reference
+  - delivery_url
+  - derived_asset
+  - metadata
+provenance:
+  supported: true
+  identifiers:
+    - asset_id
+    - public_id
+    - version
+notes:
+  - Deletion support is modeled separately from safe search/transform actions.
+  - Creative lineage belongs in Content Universe; Cloudinary is the media infrastructure layer.
