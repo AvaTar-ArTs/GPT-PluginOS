@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "gpt-pluginos"
+version = "0.2.0"
+description = "Federated capability control plane for AI providers, skills, plugins, MCP servers, and local tools."
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [{name = "AvaTar-ArTs"}]
+license = "Apache-2.0"
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.11",
+]
+
+[project.scripts]
+pluginos = "pluginos.cli:main"
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+include = ["pluginos*"]
+exclude = ["tests*", "schemas*"]
+
+[tool.setuptools.package-data]
+pluginos = ["data/*.json"]

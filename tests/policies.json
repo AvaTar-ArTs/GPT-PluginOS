@@ -1,5 +1,5 @@
 {
-  "version":"0.2.0",
+  "version":"0.2.0-test",
   "policies":[
     {"id":"quality-first","label":"Quality First","weights":{"quality":0.80,"privacy":0.05,"latency":0.05,"cost":0.05,"health":0.05},"constraints":{},"description":"Maximize outcome quality while retaining small health, privacy, latency and cost signals."},
     {"id":"cost-aware","label":"Cost Aware","weights":{"quality":0.25,"privacy":0.10,"latency":0.10,"cost":0.40,"health":0.15},"constraints":{"maxCost":3},"description":"Reduce spend while preserving provider quality and health."},

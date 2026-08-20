@@ -1,5 +1,5 @@
 {
-  "version":"0.2.0",
+  "version":"0.2.0-test",
   "capabilities":[
     {"id":"asset.graph.query","domain":"asset","label":"Graph Query","description":"Query the durable asset graph."},
     {"id":"code.release.prepare","domain":"development","label":"Release Prepare","description":"Prepare a source-controlled release."},

@@ -1,0 +1,13 @@
+{
+  "schema": "pluginos.lock.v1",
+  "generated_at": "2026-08-20T05:08:21.678801+00:00",
+  "source_versions": {
+    "providers": "0.2.0",
+    "capabilities": "0.2.0",
+    "policies": "0.2.0"
+  },
+  "provider_count": 12,
+  "capability_count": 36,
+  "policy_count": 5,
+  "graph_sha256": "0cdaefe055ed4a63d43ddc05a88b7ddca32406276f6bf8edefc05e01a4ff7007"
+}
