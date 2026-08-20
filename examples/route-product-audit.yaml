@@ -1,0 +1,32 @@
+capability: design.product.audit
+context:
+  project: pluginos-dashboard
+  policy:
+    specialist_first: true
+    require_evidence: true
+    publication: deny
+candidates:
+  - id: product-design
+    rank: 1
+    score: 0.97
+    reasons:
+      - dedicated UX audit workflow
+      - evidence-first product-flow analysis
+      - connected provider state
+    risk: read_only
+  - id: figma
+    rank: 2
+    score: 0.63
+    reasons:
+      - strong canonical design context
+      - better suited as downstream source-of-truth and editing environment
+    risk: read_only
+selected: product-design
+confidence: 0.96
+handoff:
+  if_redesign_selected:
+    - figma
+    - github
+    - vercel
+notes:
+  - Provider category is not enough. Product Design wins because capability fit is more specific.
