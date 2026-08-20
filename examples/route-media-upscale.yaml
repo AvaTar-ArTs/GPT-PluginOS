@@ -1,0 +1,47 @@
+capability: media.image.upscale
+context:
+  project: ichotaku
+  policy:
+    specialist_first: true
+    local_first: false
+    max_cost_class: medium
+    require_provenance: true
+    external_write_allowed: true
+candidates:
+  - id: magnific
+    rank: 1
+    score: 0.93
+    reasons:
+      - connected
+      - primary role is premium image processing
+      - strongest expected detail recovery
+      - project permits medium-cost external processing
+    risk: external_write
+    fallback_if:
+      - unavailable
+      - budget_exceeded
+  - id: cloudinary
+    rank: 2
+    score: 0.84
+    reasons:
+      - connected
+      - deterministic media infrastructure
+      - strong asset identifiers and provenance
+      - low-latency transformation path
+    risk: external_write
+  - id: local-esrgan
+    rank: 3
+    score: 0.72
+    reasons:
+      - local privacy-preserving fallback
+      - no external processing
+    risk: local_write
+selected: magnific
+confidence: 0.91
+warnings:
+  - Benchmark scores are illustrative until the benchmark harness is implemented.
+policy_variants:
+  privacy_sensitive:
+    local_first: true
+    external_processing: denied
+    expected_selected: local-esrgan
