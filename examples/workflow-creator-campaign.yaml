@@ -1,0 +1,77 @@
+id: creator-campaign-v1
+intent: Turn a campaign concept into researched, designed, scheduled, publication-ready creative assets without losing provenance.
+project: ichotaku
+stages:
+  - id: discover-market
+    capability: research.market.discover
+    preferred_roles:
+      - product_market_discovery
+    candidate_providers:
+      - product-hunt
+      - web-research
+    risk: read_only
+    approval: none
+  - id: keyword-intelligence
+    capability: research.seo.keyword
+    preferred_providers:
+      - semrush
+    risk: read_only
+    approval: none
+  - id: product-direction
+    capability: design.product.ideate
+    preferred_providers:
+      - product-design
+    risk: external_write
+    approval: provider_policy
+  - id: image-generation
+    capability: media.image.generate
+    routing:
+      benchmark_family: image_generation
+      require_character_consistency: true
+    risk: external_write
+    approval: provider_policy
+  - id: image-upscale
+    capability: media.image.upscale
+    preferred_providers:
+      - magnific
+      - cloudinary
+    risk: external_write
+    approval: provider_policy
+  - id: register-assets
+    capability: media.asset.register
+    preferred_providers:
+      - cloudinary
+    risk: external_write
+    provenance:
+      sink: content-universe
+      required: true
+  - id: compose-social
+    capability: design.marketing.compose
+    preferred_providers:
+      - canva
+    risk: external_write
+    approval: provider_policy
+  - id: schedule-review
+    capability: schedule.event.create
+    preferred_providers:
+      - google-calendar
+    risk: external_write
+    approval: required
+  - id: prepare-publication
+    capability: publication.prepare
+    risk: external_write
+    approval: provider_policy
+  - id: publish
+    capability: publication.execute
+    risk: publication
+    approval: explicit_human
+    execution_owner: superAgents
+provenance:
+  preserve_stage_inputs: true
+  preserve_provider_ids: true
+  preserve_source_revisions: true
+  output_sink: content-universe
+fallback_policy:
+  on_provider_unavailable: reroute_same_capability
+  on_capability_gap: stop_and_report
+  on_provenance_failure: stop_before_publication
