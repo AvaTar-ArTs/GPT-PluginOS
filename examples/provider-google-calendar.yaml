@@ -1,0 +1,46 @@
+id: google-calendar
+kind: plugin
+source:
+  system: gpt-plugs
+  authoritative: true
+  locator: provider/google-calendar
+lifecycle: connected
+roles:
+  - temporal_orchestration
+capabilities:
+  - schedule.calendar.read
+  - schedule.availability.check
+  - schedule.event.create
+  - schedule.event.update
+  - schedule.event.delete
+actions:
+  - id: calendar.read
+    capability: schedule.calendar.read
+    risk: read_only
+  - id: availability.check
+    capability: schedule.availability.check
+    risk: read_only
+  - id: event.create
+    capability: schedule.event.create
+    risk: external_write
+  - id: event.update
+    capability: schedule.event.update
+    risk: external_write
+  - id: event.delete
+    capability: schedule.event.delete
+    risk: destructive_write
+routing:
+  provenance_quality: high
+  latency_class: low
+  cost_class: low
+outputs:
+  - event_reference
+  - availability_window
+provenance:
+  supported: true
+  identifiers:
+    - calendar_id
+    - event_id
+notes:
+  - Calendar is the canonical temporal provider, not a general task database.
+  - Project/task state may live in Airtable, Notion, GitHub, or specialist systems and reference calendar objects.
