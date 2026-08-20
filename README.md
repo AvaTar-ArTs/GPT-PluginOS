@@ -22,6 +22,8 @@ Preview locally:
 python -m http.server 8080 --directory site
 ```
 
+The field site is intentionally dependency-free and presents architecture/reference behavior. It does not imply that every illustrated future CLI or automation capability is already implemented.
+
 ## Why it exists
 
 Modern AI workspaces accumulate overlapping providers:
