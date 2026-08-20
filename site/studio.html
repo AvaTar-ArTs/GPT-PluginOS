@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Interactive GPT-PluginOS Studio for provider routing, registry exploration, governance, provenance, and ecosystem checkpoints." />
+  <title>GPT-PluginOS Studio</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="studio.css" />
+</head>
+<body>
+  <nav class="nav">
+    <div class="shell nav-inner">
+      <a class="brand" href="index.html"><span class="brand-mark">◈</span><span>GPT-PluginOS</span></a>
+      <div class="nav-links">
+        <a href="index.html">Command Center</a>
+        <a class="active" href="studio.html">Studio</a>
+        <a href="advanced.html">Advanced Uses</a>
+        <a href="market.html">Market & Revenue</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="studio-shell">
+    <aside class="studio-sidebar">
+      <div class="kicker">Operator Surface</div>
+      <h1>PluginOS Studio</h1>
+      <p class="small">A data-driven prototype of the future control-plane UI. Demo records live in <code>site/data/</code>.</p>
+      <nav class="studio-nav" aria-label="Studio views">
+        <button class="studio-nav-btn active" data-view="route">Route Simulator</button>
+        <button class="studio-nav-btn" data-view="registry">Provider Registry</button>
+        <button class="studio-nav-btn" data-view="governance">Governance Lab</button>
+        <button class="studio-nav-btn" data-view="provenance">Provenance Builder</button>
+        <button class="studio-nav-btn" data-view="checkpoints">Evolution Checkpoints</button>
+      </nav>
+      <div class="sidebar-note">
+        <span class="badge good">Runtime-ready shape</span>
+        <p>Replace the demo JSON with compiler output later. The page contract does not need to change.</p>
+      </div>
+    </aside>
+
+    <section class="studio-main">
+      <header class="studio-topbar">
+        <div><div class="kicker">Live prototype</div><h2 id="view-title">Route Simulator</h2></div>
+        <div class="status-row"><span class="status-dot"></span><span id="dataset-status">Loading datasets…</span></div>
+      </header>
+
+      <section class="studio-view active" data-view-panel="route">
+        <div class="panel-grid two">
+          <article class="work-panel">
+            <div class="panel-head"><div><div class="eyebrow">01 · Request</div><h3>Resolve a capability</h3></div></div>
+            <label>Capability<select id="capability-select"></select></label>
+            <label>Policy<select id="policy-select"></select></label>
+            <div class="policy-copy" id="policy-copy"></div>
+            <button class="btn primary" id="route-btn">Compute route</button>
+          </article>
+          <article class="work-panel">
+            <div class="panel-head"><div><div class="eyebrow">02 · Result</div><h3>Ranked providers</h3></div><span class="badge good" id="route-count">0 eligible</span></div>
+            <div id="route-results" class="route-results"></div>
+          </article>
+        </div>
+        <article class="work-panel route-explain-panel">
+          <div class="panel-head"><div><div class="eyebrow">03 · Explain</div><h3>Decision trace</h3></div></div>
+          <pre id="route-explain" class="terminal">Select a capability and policy, then compute the route.</pre>
+        </article>
+      </section>
+
+      <section class="studio-view" data-view-panel="registry">
+        <article class="work-panel">
+          <div class="panel-head"><div><div class="eyebrow">Registry</div><h3>Provider inventory</h3></div><input id="provider-search" class="search" placeholder="Search provider, category, capability…" /></div>
+          <div class="filter-row" id="provider-filters"></div>
+          <div id="provider-grid" class="provider-grid"></div>
+        </article>
+      </section>
+
+      <section class="studio-view" data-view-panel="governance">
+        <div class="panel-grid two">
+          <article class="work-panel">
+            <div class="panel-head"><div><div class="eyebrow">Policy</div><h3>Action gate</h3></div></div>
+            <label>Action class<select id="risk-select">
+              <option value="read_only">read_only</option>
+              <option value="external_write">external_write</option>
+              <option value="code_change">code_change</option>
+              <option value="deployment">deployment</option>
+              <option value="publication">publication</option>
+              <option value="financial">financial</option>
+              <option value="destructive_write">destructive_write</option>
+            </select></label>
+            <label class="checkline"><input id="human-approved" type="checkbox" /> Explicit human approval recorded</label>
+            <label class="checkline"><input id="provenance-required" type="checkbox" checked /> Provenance record required</label>
+            <button class="btn primary" id="gate-btn">Evaluate gate</button>
+          </article>
+          <article class="work-panel gate-output" id="gate-output">
+            <div class="eyebrow">Decision</div>
+            <div class="gate-symbol">?</div>
+            <h3>Awaiting evaluation</h3>
+            <p>PluginOS can recommend a provider, but authorization is a separate decision.</p>
+          </article>
+        </div>
+        <article class="work-panel">
+          <div class="panel-head"><div><div class="eyebrow">Risk ladder</div><h3>Default approval expectations</h3></div></div>
+          <div class="risk-ladder">
+            <div><span>read_only</span><strong>auto / logged</strong></div>
+            <div><span>external_write</span><strong>policy-dependent</strong></div>
+            <div><span>code_change</span><strong>review + verification</strong></div>
+            <div><span>publication</span><strong>explicit approval</strong></div>
+            <div><span>deployment</span><strong>explicit approval</strong></div>
+            <div><span>financial</span><strong>explicit approval</strong></div>
+            <div><span>destructive_write</span><strong>explicit approval + confirmation</strong></div>
+          </div>
+        </article>
+      </section>
+
+      <section class="studio-view" data-view-panel="provenance">
+        <div class="panel-grid two">
+          <article class="work-panel">
+            <div class="panel-head"><div><div class="eyebrow">Evidence</div><h3>Compose provenance envelope</h3></div></div>
+            <label>Intent<input id="prov-intent" value="Upscale creator campaign key art" /></label>
+            <label>Capability<input id="prov-cap" value="media.image.upscale" /></label>
+            <label>Provider<input id="prov-provider" value="magnific" /></label>
+            <label>Policy<input id="prov-policy" value="quality-first" /></label>
+            <label>Input asset<input id="prov-input" value="campaign/key-art-v3.png" /></label>
+            <label>Output asset<input id="prov-output" value="campaign/key-art-v3-upscaled.png" /></label>
+            <button class="btn primary" id="prov-btn">Build record</button>
+          </article>
+          <article class="work-panel">
+            <div class="panel-head"><div><div class="eyebrow">Record</div><h3>Portable JSON</h3></div><button class="btn compact" id="copy-prov">Copy</button></div>
+            <pre id="prov-json" class="terminal tall"></pre>
+          </article>
+        </div>
+      </section>
+
+      <section class="studio-view" data-view-panel="checkpoints">
+        <article class="work-panel">
+          <div class="panel-head"><div><div class="eyebrow">Project memory</div><h3>Architecture evolution checkpoints</h3></div><span class="badge good">traceable lineage</span></div>
+          <div id="checkpoint-timeline" class="checkpoint-timeline"></div>
+        </article>
+      </section>
+    </section>
+  </main>
+
+  <script src="studio.js" type="module"></script>
+</body>
+</html>
