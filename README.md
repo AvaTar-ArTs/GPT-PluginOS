@@ -1,90 +1,63 @@
 # GPT-PluginOS
 
-> A federated capability control plane for discovering, comparing, routing, governing, and explaining the provider ecosystem around AvaTar-ArTs agents, skills, plugins, tools, and creative infrastructure.
+> A federated capability control plane for discovering, comparing, routing, governing, and explaining the provider ecosystem around AvaTar-ArTs agents, skills, plugins, MCP servers, local tools, APIs, and creative infrastructure.
 
-GPT-PluginOS answers a deceptively hard question:
+GPT-PluginOS answers one deceptively hard question:
 
 > **Given an intent, which capability is needed, which providers can satisfy it, and which route is best under current quality, privacy, cost, risk, health, and project constraints?**
 
 It is not another agent runtime and not another plugin list.
 
-## Field site
+## Status: v0.2 foundation runtime
 
-A dependency-free static field site now lives in [`site/`](site/):
+The repository now contains an installable, read-only control-plane runtime plus the documentation and Studio surfaces that preceded it.
 
-- [`site/index.html`](site/index.html) — product command center and capability-routing demo
-- [`site/advanced.html`](site/advanced.html) — advanced routing, governance, creator, engineering, research, benchmark, and drift scenarios
-- [`site/market.html`](site/market.html) — market positioning, sellable offers, SaaS ladder, revenue flywheel, launch channels, and commercialization roadmap
+Implemented today:
 
-Preview locally:
+- normalized provider/capability/policy registry
+- strict graph validation and duplicate/unknown-capability checks
+- deterministic policy-aware provider ranking
+- fail-closed hard constraints with no silent widening
+- route explanation with `authorization_implied: false`
+- overlap analysis and coverage audit
+- metadata benchmark snapshots
+- compiled route projection
+- deterministic ecosystem lockfile and lockfile diff
+- Mermaid/JSON graph export
+- Studio dataset export
+- JSON Schema contracts
+- regression tests and GitHub Actions CI
+
+Execution of provider actions remains outside PluginOS. SuperAgents/human policy remains responsible for authorization and execution.
+
+## Install
 
 ```bash
-python -m http.server 8080 --directory site
+python -m pip install .
+pluginos --version
+pluginos validate
 ```
 
-The field site is intentionally dependency-free and presents architecture/reference behavior. It does not imply that every illustrated future CLI or automation capability is already implemented.
+Python 3.11+ is supported. The v0.2 runtime has no third-party runtime dependencies.
 
-## Why it exists
+## Quick start
 
-Modern AI workspaces accumulate overlapping providers:
-
-- ChatGPT plugins/apps/connectors
-- MCP servers
-- APIs
-- local Python tools
-- workflow engines
-- specialist repositories
-- creative generation providers
-- research systems
-- deployment systems
-- internal agents and skills
-
-Without a control plane, orchestration slowly hard-codes vendor names and loses track of why a provider was selected.
-
-PluginOS introduces a stable middle layer:
-
-```text
-intent
-  -> capability
-  -> provider graph
-  -> policy + benchmark + state
-  -> advisory route
-  -> approval/execution
-  -> provenance
+```bash
+pluginos scan
+pluginos providers
+pluginos capabilities
+pluginos route media.image.upscale --policy quality-first --json
+pluginos explain media.image.upscale --policy balanced
+pluginos overlaps
+pluginos benchmark media --policy quality-first --json
+pluginos audit
+pluginos graph --format mermaid
+pluginos lock --output pluginos.lock.json
+pluginos compile --output pluginos.compiled.json
+pluginos export-site site/data
 ```
 
-## Ecosystem position
-
-```text
-                        GPT-PluginOS
-                            │
-        ┌───────────────────┼───────────────────┐
-        │                   │                   │
-     discovery           compiler          governance
-        │                   │                   │
-        └───────────────────┼───────────────────┘
-                            │
-       ┌────────────────────┼────────────────────┐
-       ▼                    ▼                    ▼
-  SuperSkills            gpt-plugs          SuperAgents
-  capabilities           providers          execution
-       │                    │                    │
-       └────────────────────┼────────────────────┘
-                            ▼
-                     Content Universe
-                 provenance / lineage / assets
-                            │
-                    specialist systems
-```
-
-### Sources of truth
-
-- **SuperSkills**: reusable capability/skill contracts
-- **SuperAgents**: routing acceptance, approvals, execution, verification
-- **gpt-plugs**: governed external provider/action registry
-- **Content Universe**: creative entities, provenance, assets, lineage
-- **agent-skills**: broader experimental/specialist skill ecosystem
-- **GPT-PluginOS**: normalized cross-source graph, overlap, policy, benchmark, health, lockfile, and route projections
+See [docs/RUNTIME.md](docs/RUNTIME.md) for the full CLI and scope.
 
 ## Core principle
 
@@ -102,132 +75,38 @@ a workflow requests:
 media.image.upscale
 ```
 
-PluginOS may then rank:
+PluginOS can then rank eligible providers under a policy:
 
 ```text
-1. Magnific      premium specialist
-2. Cloudinary    infrastructure transform
-3. Local ESRGAN  private/offline fallback
+quality-first -> Magnific
+cost-aware    -> lower-cost eligible route
+private-local -> Local Upscaler
 ```
 
-The ranking can change without rewriting the workflow.
+The workflow stays stable even when providers change.
 
-## Current status
-
-The repository is in foundation/design phase. The approved federated architecture and operator/reference documentation are being established before runtime implementation.
-
-The command examples in the documentation describe the intended CLI surface and should not be interpreted as already implemented unless a later release says otherwise.
-
-## Documentation
-
-Start here:
-
-- [Architecture design](docs/superpowers/specs/2026-08-19-gpt-pluginos-design.md)
-- [Operator handbook](docs/OPERATOR_HANDBOOK.md)
-- [Extensive use cases](docs/USE_CASES.md)
-- [Worked examples](docs/EXAMPLES.md)
-- [Advanced patterns](docs/ADVANCED_PATTERNS.md)
-- [Governance playbook](docs/GOVERNANCE_PLAYBOOK.md)
-- [Benchmark playbook](docs/BENCHMARK_PLAYBOOK.md)
-- [Ecosystem integrations](docs/ECOSYSTEM_INTEGRATIONS.md)
-- [Implementation plan](docs/superpowers/plans/2026-08-19-operator-handbook-v1.md)
-
-## Example contracts
-
-Reference examples live in [`examples/`](examples/):
-
-- `provider-cloudinary.yaml`
-- `provider-product-design.yaml`
-- `provider-google-calendar.yaml`
-- `route-media-upscale.yaml`
-- `route-product-audit.yaml`
-- `workflow-creator-campaign.yaml`
-- `workflow-code-release.yaml`
-
-These examples are designed to become future compiler/test fixtures.
-
-## Example: creator campaign
+## Architecture
 
 ```text
-market discovery
-  -> Product Hunt / web
-SEO intelligence
-  -> Semrush
-product/design direction
-  -> Product Design
-image generation
-  -> provider selected per benchmark/policy
-upscale
-  -> Magnific / Cloudinary / local fallback
-asset infrastructure
-  -> Cloudinary
-creative lineage
-  -> Content Universe
-brand/social adaptation
-  -> Canva
-schedule
-  -> Google Calendar
-publication
-  -> explicit approval via SuperAgents
+intent
+  -> capability
+  -> provider graph
+  -> policy + state + benchmark metadata
+  -> advisory route
+  -> approval/execution outside PluginOS
+  -> provenance
 ```
 
-No single plugin owns the campaign.
+The surrounding repositories keep their source-of-truth boundaries:
 
-## Example: engineering release
+- **SuperSkills**: reusable capability/skill contracts
+- **SuperAgents**: approvals, execution, verification, runtime orchestration
+- **gpt-plugs**: governed external provider/action registry
+- **Content Universe**: creative entities, assets, provenance, lineage
+- **agent-skills**: broader experimental/specialist skill ecosystem
+- **GPT-PluginOS**: normalized cross-source graph, policy, comparison, lockfile, and route projections
 
-```text
-repository inspection -> GitHub
-change implementation -> controlled code-change route
-tests -> local/runtime verification
-security -> Codex Security
-release -> GitHub
-production deploy -> Vercel + deployment approval
-milestone -> Google Calendar
-```
-
-Again, capability stages matter more than vendor categories.
-
-## Planned CLI
-
-```bash
-pluginos scan
-pluginos validate
-pluginos compile
-pluginos providers
-pluginos capabilities
-pluginos explain <capability>
-pluginos route <capability>
-pluginos overlaps
-pluginos benchmark <suite>
-pluginos lock
-pluginos diff <lock-a> <lock-b>
-pluginos graph --format mermaid
-pluginos audit
-```
-
-JSON output is planned for agent consumption.
-
-## Routing signals
-
-PluginOS is designed to rank providers using signals such as:
-
-- capability fit
-- provider role
-- installed/connected state
-- health
-- risk compatibility
-- benchmark quality
-- latency
-- cost class
-- provenance quality
-- local-first preference
-- privacy zone
-- project overrides
-- downstream output compatibility
-
-No single weighted score is required. Multi-objective/Pareto routing is a first-class pattern.
-
-## Governance
+## Governance invariant
 
 Provider selection is never authorization.
 
@@ -242,102 +121,93 @@ Risk classes include:
 - `code_change`
 - `deployment`
 
-SuperAgents remains responsible for approval and execution policy.
+Every JSON route response explicitly reports:
 
-## Lockfiles
-
-A planned `pluginos.lock.json` captures the exact ecosystem projection used for a benchmark, audit, or production-sensitive decision:
-
-- source repository revisions
-- catalog hashes
-- schema versions
-- provider/capability counts
-- graph hash
-- benchmark snapshots
-
-This lets future operators answer:
-
-> “What provider ecosystem produced this route?”
-
-## First-party providers
-
-External SaaS providers are not privileged over local tools.
-
-A repository such as `icho-reel-eng`, a tool inside `pythons`, or a workflow inside `n8n_workflows` can participate through a provider manifest and compete by capability.
-
-That allows PluginOS to answer questions like:
-
-> “Should this image operation use Cloudinary, Magnific, or one of my own local tools?”
-
-## Provider maturity
-
-A useful integration maturity model is:
-
-```text
-discovered
- -> declared
- -> normalized
- -> validated
- -> benchmarked
- -> routed
- -> executable
- -> provenance-complete
+```json
+{"authorization_implied": false}
 ```
 
-Being listed does not mean a provider is production-ready.
+## Registry and policies
 
-## Non-goals
+The canonical seed registry lives in `pluginos/data/` and currently contains:
 
-GPT-PluginOS is not intended to:
+- 12 normalized providers
+- 36 declared capabilities
+- 5 policy presets
 
-- replace SuperAgents
-- replace SuperSkills
-- replace gpt-plugs
-- store creative assets
-- store credentials
-- autonomously install/uninstall plugins
-- silently broaden permissions
-- execute destructive/financial/publication actions by itself
-- become an unbounded universal agent runtime
+The Studio browser data in `site/data/` is synchronized to the same v0.2 records.
 
-## Roadmap
+Use `--data-dir` with another directory containing `providers.json`, `capabilities.json`, and `policies.json` to test alternate registries without modifying the bundled defaults.
 
-### Phase 0: foundation
+## Reproducibility
 
-Architecture, schemas, docs, tests, CI, changelog discipline.
+`pluginos lock` records source versions, registry counts, and a deterministic `graph_sha256` over normalized provider/capability/policy state.
 
-### Phase 1: federated registry
+```bash
+pluginos lock --output before.json
+# change registry
+pluginos lock --output after.json
+pluginos diff before.json after.json
+```
 
-Adapters for gpt-plugs, SuperSkills, SuperAgents, agent-skills, GitHub/repository providers, plugin inventory, and deterministic lockfiles.
+The committed `pluginos.lock.json` is the v0.2 seed snapshot.
 
-### Phase 2: routing intelligence
+## Studio and field site
 
-Capability graph, overlap analysis, ranking, route explanations, SuperAgents projections.
+A dependency-free product surface lives in [`site/`](site/):
 
-### Phase 3: evaluation and health
+- [`site/index.html`](site/index.html) — command center
+- [`site/studio.html`](site/studio.html) — routing, registry, governance, provenance, checkpoints
+- [`site/advanced.html`](site/advanced.html) — advanced use cases and patterns
+- [`site/market.html`](site/market.html) — positioning and commercialization
+- [`site/revenue-studio.html`](site/revenue-studio.html) — revenue scenario/offer modeling
 
-Benchmark harnesses, health/lifecycle observations, canary/shadow providers, historical plugin migration mapping.
+Preview locally:
 
-### Phase 4: creator/asset integration
+```bash
+python -m http.server 8080 --directory site
+```
 
-Content Universe provenance, Cloudinary handoff, CreativeOS projections, ichoTaKu/reel/creator-provider manifests.
+Refresh the Studio's runtime datasets with:
 
-### Phase 5: operator surfaces
+```bash
+pluginos export-site site/data
+```
 
-Generated ecosystem reports, graph views, dashboard, drift explorer, benchmark comparisons.
+## Testing and release check
 
-## Design philosophy
+```bash
+python -m unittest discover -s tests -v
+make release-check
+```
 
-The system should make a sprawling AI tool ecosystem feel less like a drawer of adapters and more like a typed, queryable nervous system.
+CI repeats install, tests, validation, compile, lockfile, route, and audit smoke checks.
 
-Every route should ultimately be able to answer:
+## Documentation
 
-1. What capability did we think was required?
-2. Which providers were eligible?
-3. Why was this one selected?
-4. What policy changed the ranking?
-5. What source/benchmark state supported the decision?
-6. What approval was required?
-7. Where did the resulting artifact or audit record go?
+- [Runtime v0.2](docs/RUNTIME.md)
+- [Architecture design](docs/superpowers/specs/2026-08-19-gpt-pluginos-design.md)
+- [Operator handbook](docs/OPERATOR_HANDBOOK.md)
+- [Extensive use cases](docs/USE_CASES.md)
+- [Worked examples](docs/EXAMPLES.md)
+- [Advanced patterns](docs/ADVANCED_PATTERNS.md)
+- [Governance playbook](docs/GOVERNANCE_PLAYBOOK.md)
+- [Benchmark playbook](docs/BENCHMARK_PLAYBOOK.md)
+- [Ecosystem integrations](docs/ECOSYSTEM_INTEGRATIONS.md)
+- [Runtime checkpoint](docs/checkpoints/2026-08-20-runtime-v0.2.md)
 
-If PluginOS cannot explain those seven things, the control plane is not finished.
+## Current roadmap boundary
+
+v0.2 is the completed **foundation runtime**, not the end of the broader PluginOS roadmap.
+
+Next phases remain intentionally separate:
+
+1. live plugin/MCP/repository source adapters
+2. live health and lifecycle observations
+3. real provider benchmark execution
+4. SuperAgents route-projection exchange
+5. Content Universe provenance write adapters
+6. canary/shadow observations and drift monitoring
+7. hosted/team control plane
+
+This boundary is deliberate: PluginOS should become the control plane around execution, not quietly duplicate the execution runtime it was designed to govern.
