@@ -1,0 +1,6 @@
+interface:
+  display_name: "GPT PluginOS"
+  short_description: "Repo-specific patterns and workflows for GPT-PluginOS"
+  default_prompt: "Use the GPT-PluginOS repo skill to follow existing architecture, testing, and workflow conventions."
+policy:
+  allow_implicit_invocation: true
