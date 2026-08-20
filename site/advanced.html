@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Advanced GPT-PluginOS patterns: ensembles, fallbacks, canaries, privacy zones, benchmarks, provenance, creative pipelines, release governance, and ecosystem drift." />
+  <title>GPT-PluginOS | Advanced Uses</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <nav class="nav">
+    <div class="shell nav-inner">
+      <a class="brand" href="index.html"><span class="brand-mark">◈</span><span>GPT-PluginOS</span></a>
+      <div class="nav-links">
+        <a href="index.html">Command Center</a>
+        <a class="active" href="advanced.html">Advanced Uses</a>
+        <a href="market.html">Market & Revenue</a>
+        <a href="../docs/ADVANCED_PATTERNS.md">Deep Docs</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="shell hero-grid">
+      <div>
+        <div class="kicker">Advanced Field Guide</div>
+        <h1>Turn tool sprawl into <span class="gradient-text">designed behavior.</span></h1>
+        <p class="lede">The interesting part of PluginOS starts after “find a provider.” These patterns cover how to route under failure, protect sensitive data, benchmark overlapping tools, coordinate creator systems, keep releases governable, and let the whole ecosystem evolve without becoming soup.</p>
+        <div class="actions"><a class="btn primary" href="#patterns">Open pattern library</a><a class="btn" href="market.html">Commercialize these capabilities</a></div>
+      </div>
+      <div class="card">
+        <span class="badge good">Advanced route</span>
+        <pre class="code">request
+  ↓
+capability set
+  ↓
+policy context
+  ├─ privacy zone
+  ├─ cost ceiling
+  ├─ quality floor
+  ├─ approval class
+  └─ freshness budget
+  ↓
+provider ensemble
+  ↓
+verify + provenance
+  ↓
+learn from outcome</pre>
+      </div>
+    </div>
+  </header>
+
+  <main id="patterns">
+    <section class="section">
+      <div class="shell">
+        <div class="section-head"><div><div class="kicker">Pattern library</div><h2>Beyond “primary + fallback.”</h2></div><p>Advanced routing can use specialists, ensembles, shadows, canaries, Pareto frontiers, circuit breakers, provenance rules, and project-specific constraints.</p></div>
+        <div class="grid cols-3">
+          <article class="card"><div class="icon">🎯</div><h3>Specialist-first routing</h3><p>Choose the provider strongest at the exact capability instead of crowning one platform king of everything.</p></article>
+          <article class="card"><div class="icon">🪞</div><h3>Shadow providers</h3><p>Run a secondary provider for evaluation without exposing its result to the production workflow. Learn without risking production.</p></article>
+          <article class="card"><div class="icon">🐤</div><h3>Canary routing</h3><p>Send a small slice of eligible work to a new provider and compare quality, latency, cost, and failure patterns before promotion.</p></article>
+          <article class="card"><div class="icon">🧱</div><h3>Privacy zones</h3><p>Local-only, private-cloud, approved-remote, and public-data zones can alter which providers are even eligible.</p></article>
+          <article class="card"><div class="icon">🧯</div><h3>Circuit breakers</h3><p>Repeated failures, latency spikes, stale auth, or degraded output quality can temporarily demote a provider automatically.</p></article>
+          <article class="card"><div class="icon">📐</div><h3>Pareto routing</h3><p>Preserve multiple non-dominated choices when no provider simultaneously wins quality, cost, latency, privacy, and provenance.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <div class="section-head"><div><div class="kicker">Scenario switchboard</div><h2>One system, wildly different missions.</h2></div><p>Use the tabs to jump between creator, engineering, governance, and research-oriented flows.</p></div>
+        <div class="tabs">
+          <button class="tab active" data-group="mission" data-tab="creator">Creator campaign</button>
+          <button class="tab" data-group="mission" data-tab="release">Code release</button>
+          <button class="tab" data-group="mission" data-tab="audit">Security audit</button>
+          <button class="tab" data-group="mission" data-tab="research">Research swarm</button>
+        </div>
+
+        <div class="tab-panel active" data-panel-group="mission" data-panel="creator">
+          <div class="grid cols-2">
+            <div class="card"><h3>Creator Campaign Compiler</h3><p>Market signal → creative brief → product design → generation → upscale → Cloudinary derivatives → Content Universe registration → social composition → calendar review → approval → publish.</p><div class="pills"><span class="pill">Product Hunt</span><span class="pill">Semrush</span><span class="pill">Product Design</span><span class="pill">Magnific</span><span class="pill">Cloudinary</span><span class="pill">Canva</span></div></div>
+            <pre class="code">workflow: creator.campaign
+approval_gates:
+  - asset_finalization
+  - publication
+provenance:
+  sink: content-universe
+fallbacks:
+  media.image.upscale:
+    - cloudinary
+    - local-upscaler
+outputs:
+  - 16:9 thumbnail
+  - 9:16 reel asset
+  - 1:1 social tile
+  - campaign manifest</pre>
+          </div>
+        </div>
+
+        <div class="tab-panel" data-panel-group="mission" data-panel="release">
+          <div class="grid cols-2">
+            <div class="card"><h3>Governed Release Train</h3><p>Repository change, test, security scan, release notes, deployment preview, production approval, deployment, milestone update. Code-change authorization never implies deployment authorization.</p><div class="pills"><span class="pill">GitHub</span><span class="pill">Codex Security</span><span class="pill">Vercel</span><span class="pill">Google Calendar</span></div></div>
+            <pre class="code">workflow: code.release
+risk_boundaries:
+  code_change: approval_required
+  deployment: separate_approval
+  destructive_write: deny_by_default
+checks:
+  - tests
+  - security_scan
+  - route_lock_diff
+  - release_provenance</pre>
+          </div>
+        </div>
+
+        <div class="tab-panel" data-panel-group="mission" data-panel="audit">
+          <div class="grid cols-2">
+            <div class="card"><h3>Plugin/MCP Trust Audit</h3><p>Inventory installed and declared providers, compare capabilities and permissions, flag destructive actions, identify dead/legacy integrations, trace replacements, and emit a signed snapshot.</p><div class="pills"><span class="pill">Plugin inventory</span><span class="pill">MCP manifests</span><span class="pill">Risk classes</span><span class="pill">Migration graph</span></div></div>
+            <pre class="code">audit:
+  detect:
+    - capability_overlap
+    - permission_expansion
+    - stale_provider
+    - alias_collision
+    - missing_provenance
+  emit:
+    - provider_graph.json
+    - risk_report.md
+    - pluginos.lock.json</pre>
+          </div>
+        </div>
+
+        <div class="tab-panel" data-panel-group="mission" data-panel="research">
+          <div class="grid cols-2">
+            <div class="card"><h3>Source-specialized Research Swarm</h3><p>Academic providers handle papers, SEO providers handle search-market evidence, Product Hunt handles product traction, web research fills public context, and a verifier compares claims before publication.</p><div class="pills"><span class="pill">Sider Scholar</span><span class="pill">Semrush</span><span class="pill">Product Hunt</span><span class="pill">Web</span></div></div>
+            <pre class="code">research_policy:
+  freshness_days: 30
+  min_source_classes: 2
+  require_citations: true
+  disagreement_mode: preserve
+ranking:
+  source_authority: 0.35
+  freshness: 0.25
+  recall: 0.20
+  structure: 0.20</pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <div class="section-head"><div><div class="kicker">Creative asset intelligence</div><h2>Cloud media meets the provenance graph.</h2></div><p>One of the richer integrations pairs Cloudinary’s delivery/search/transform layer with Content Universe’s semantic identity and lineage.</p></div>
+        <div class="flow">
+          <div class="flow-step"><strong>Generate</strong><br><span class="small">remote or local model</span></div><div class="flow-arrow">→</div>
+          <div class="flow-step"><strong>Analyze</strong><br><span class="small">dimensions, color, pHash, quality</span></div><div class="flow-arrow">→</div>
+          <div class="flow-step"><strong>Relate</strong><br><span class="small">character, prompt, campaign, source</span></div><div class="flow-arrow">→</div>
+          <div class="flow-step"><strong>Derive</strong><br><span class="small">16:9, 9:16, 1:1, poster</span></div><div class="flow-arrow">→</div>
+          <div class="flow-step"><strong>Register</strong><br><span class="small">Content Universe lineage</span></div>
+        </div>
+        <div class="grid cols-3" style="margin-top:18px">
+          <div class="card"><span class="badge good">Dedup</span><h3>Near-duplicate intelligence</h3><p>pHash and visual similarity can identify exact duplicates, alternate crops, composition siblings, and related generations.</p></div>
+          <div class="card"><span class="badge good">Canon</span><h3>Character/reference families</h3><p>Relate every approved reference to derived thumbnails, panels, posters, videos, and remix branches.</p></div>
+          <div class="card"><span class="badge good">Delivery</span><h3>Format-aware routing</h3><p>Request a delivery capability and produce the right crop, format, quality target, and CDN-ready derivative automatically.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <div class="section-head"><div><div class="kicker">Benchmark engine</div><h2>Never ask “which provider is best?” again.</h2></div><p>Ask which provider is best for a capability, policy context, and workload. Store the evidence as versioned observations.</p></div>
+        <table class="matrix">
+          <thead><tr><th>Benchmark family</th><th>Useful dimensions</th><th>Promotion rule</th></tr></thead>
+          <tbody>
+            <tr><td>Image generation</td><td>prompt adherence, character consistency, typography, style fidelity, latency, cost</td><td>Promote per capability, not globally</td></tr>
+            <tr><td>Upscaling</td><td>detail recovery, artifact rate, identity preservation, output size, cost</td><td>Require minimum identity score</td></tr>
+            <tr><td>Research</td><td>authority, freshness, citation completeness, recall, factual accuracy</td><td>Expire scores by freshness budget</td></tr>
+            <tr><td>Development</td><td>correctness, diff quality, test pass rate, security regressions, reproducibility</td><td>Require green safety floor</td></tr>
+            <tr><td>Presentations</td><td>structure, hierarchy, editability, fidelity, iteration ergonomics</td><td>Keep multiple role-specific winners</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell grid cols-2">
+        <div class="card"><div class="kicker">Drift intelligence</div><h2 style="font-size:34px">Know when the stack changes underneath you.</h2><p>Compare lockfiles and detect new providers, removed providers, schema revisions, permission changes, capability expansion, benchmark regressions, or changed aliases.</p><pre class="code">pluginos diff lock-2026-08-01.json lock-2026-08-20.json
+
++ provider: cloudinary
+~ github.permissions: write → write+deploy
+! semrush.health: connected → degraded
+→ legacy-plugin-x replaced_by mcp-provider-y</pre></div>
+        <div class="card"><div class="kicker">Learning router</div><h2 style="font-size:34px">Let outcomes become routing evidence.</h2><p>Human approvals, retries, rejected outputs, benchmark wins, and successful production runs can become evidence without turning the system into opaque autopilot.</p><pre class="code">observation:
+  capability: design.product.audit
+  provider: product-design
+  outcome: accepted
+  human_score: 0.93
+  latency_ms: 4210
+  project: creator-camp
+  use_for_ranking: true</pre></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell"><div class="callout"><strong>Advanced principle:</strong> PluginOS should make the system more explainable as it gets more capable. Every clever route needs an answer to “why this provider, under which policy, using what evidence, and what would have happened if it failed?”</div></div>
+    </section>
+  </main>
+
+  <footer class="footer"><div class="shell">GPT-PluginOS Advanced Field Guide · <span data-year></span> · Read the full pattern catalog in <code>docs/ADVANCED_PATTERNS.md</code>.</div></footer>
+  <script src="app.js"></script>
+</body>
+</html>
