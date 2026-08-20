@@ -1,0 +1,61 @@
+id: code-release-v1
+intent: Move a repository change from request through implementation, verification, security review, deployment, and milestone scheduling.
+project: pluginos
+stages:
+  - id: inspect
+    capability: code.repository.read
+    preferred_providers:
+      - github
+    risk: read_only
+    approval: none
+  - id: modify
+    capability: code.repository.modify
+    preferred_providers:
+      - github
+    risk: code_change
+    approval: required
+    execution_owner: superAgents
+  - id: test
+    capability: code.test.run
+    risk: local_write
+    approval: none
+    requirements:
+      - deterministic fixtures
+      - failing-test-first for behavioral changes
+  - id: security
+    capability: security.scan
+    preferred_providers:
+      - codex-security
+    risk: read_only
+    approval: none
+    policy:
+      block_on:
+        - validated_critical
+        - validated_high
+  - id: release-prepare
+    capability: code.release.prepare
+    preferred_providers:
+      - github
+    risk: code_change
+    approval: required
+  - id: deploy
+    capability: deploy.web.publish
+    preferred_providers:
+      - vercel
+    risk: deployment
+    approval: explicit_human
+  - id: milestone-calendar
+    capability: schedule.event.create
+    preferred_providers:
+      - google-calendar
+    risk: external_write
+    approval: required
+provenance:
+  preserve_commit_sha: true
+  preserve_route_projection: true
+  preserve_test_result: true
+  preserve_security_snapshot: true
+fallback_policy:
+  security_provider_unavailable: block_release_or_require_override
+  deploy_provider_unavailable: keep_release_artifact_unpublished
+  calendar_provider_unavailable: report_unscheduled_milestone
