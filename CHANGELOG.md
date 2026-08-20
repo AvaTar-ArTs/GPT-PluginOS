@@ -4,14 +4,37 @@ All notable GPT-PluginOS changes are documented here.
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-08-20
+
 ### Added
 
-- Dependency-free static field site under `site/`.
-- Product command-center page with capability-routing policy demos and ecosystem architecture.
-- Advanced-use-cases page covering creator, engineering, research, governance, benchmarks, drift, privacy zones, canaries, shadows, and provenance patterns.
-- Market-and-revenue page covering positioning, service offers, SaaS tiers, distribution channels, data moat, content hooks, and a 90-day commercialization sequence.
-- Shared responsive visual system and lightweight tab interactions.
-- Local preview and static-host deployment notes.
+- Installable Python 3.11+ `gpt-pluginos` package and `pluginos` CLI.
+- Read-only normalized registry with 12 seed providers, 36 declared capabilities, and 5 policy presets.
+- Strict graph validation for duplicate IDs and unknown provider capability references.
+- Deterministic provider ranking across quality, privacy, latency, cost, and health signals.
+- Hard policy constraints including local-only, max-cost, read-only, and degraded-provider exclusion without silent widening.
+- Route explanation payloads that explicitly report `authorization_implied: false`.
+- `scan`, `providers`, `capabilities`, `route`, `explain`, `overlaps`, `benchmark`, `compile`, `lock`, `diff`, `graph`, `audit`, and `export-site` commands.
+- Deterministic ecosystem graph hash and committed `pluginos.lock.json` seed snapshot.
+- Compiled route-projection model and Studio dataset export.
+- JSON Schema contracts for providers, capabilities, policies, route projections, lockfiles, compiled registries, and provenance envelopes.
+- 17 regression tests covering registry invariants, routing, fail-closed constraints, lockfiles, compiler output, CLI behavior, and schema syntax.
+- GitHub Actions validation workflow plus Makefile release-check targets.
+- Runtime operator guide, security policy, contribution rules, and executable-runtime checkpoint.
+- Dependency-free static field site under `site/` with command center, advanced uses, market/revenue pages, Studio, and Revenue Studio.
+
+### Changed
+
+- Expanded the capability catalog so every provider capability edge resolves to a declared capability.
+- Tuned the `quality-first` policy so its behavior matches its name for the seed image-upscale route.
+- Synchronized Studio provider/capability/policy datasets with the canonical v0.2 runtime registry.
+- Updated project status from architecture/design-only to an executable foundation runtime.
+
+### Security
+
+- Preserved selection-versus-authorization separation as a runtime invariant.
+- Kept v0.2 read-only with no credential storage or provider action execution.
+- Added fail-closed handling for policy constraints and explicit security-sensitive areas in `SECURITY.md`.
 
 ## [0.1.0] - 2026-08-19
 
@@ -37,9 +60,3 @@ All notable GPT-PluginOS changes are documented here.
 - `examples/route-product-audit.yaml`
 - `examples/workflow-creator-campaign.yaml`
 - `examples/workflow-code-release.yaml`
-
-### Notes
-
-- CLI commands shown in documentation describe the intended future interface and are not claimed as implemented in v0.1.0.
-- Provider benchmark scores in examples are illustrative until the benchmark harness exists.
-- Provider selection remains advisory; authorization and execution remain the responsibility of SuperAgents/human policy.
