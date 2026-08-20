@@ -1,10 +1,10 @@
 {
-  "version": "0.1.0-demo",
-  "policies": [
-    {"id":"quality-first","label":"Quality First","weights":{"quality":0.55,"privacy":0.10,"latency":0.10,"cost":0.10,"health":0.15},"constraints":{},"description":"Prefer the strongest outcome while still rewarding healthy, auditable providers."},
-    {"id":"cost-aware","label":"Cost Aware","weights":{"quality":0.25,"privacy":0.10,"latency":0.10,"cost":0.40,"health":0.15},"constraints":{"maxCost":3},"description":"Reduce spend while preserving a quality floor and provider health."},
-    {"id":"private-local","label":"Private / Local","weights":{"quality":0.20,"privacy":0.45,"latency":0.10,"cost":0.10,"health":0.15},"constraints":{"localOnly":true},"description":"Forbid remote transfer and keep eligible execution on local or first-party providers."},
-    {"id":"balanced","label":"Balanced","weights":{"quality":0.30,"privacy":0.20,"latency":0.15,"cost":0.15,"health":0.20},"constraints":{},"description":"General-purpose route balancing quality, privacy, speed, cost, and health."},
+  "version":"0.2.0",
+  "policies":[
+    {"id":"quality-first","label":"Quality First","weights":{"quality":0.80,"privacy":0.05,"latency":0.05,"cost":0.05,"health":0.05},"constraints":{},"description":"Maximize outcome quality while retaining small health, privacy, latency and cost signals."},
+    {"id":"cost-aware","label":"Cost Aware","weights":{"quality":0.25,"privacy":0.10,"latency":0.10,"cost":0.40,"health":0.15},"constraints":{"maxCost":3},"description":"Reduce spend while preserving provider quality and health."},
+    {"id":"private-local","label":"Private / Local","weights":{"quality":0.20,"privacy":0.45,"latency":0.10,"cost":0.10,"health":0.15},"constraints":{"localOnly":true},"description":"Forbid remote transfer and keep execution on local or first-party providers."},
+    {"id":"balanced","label":"Balanced","weights":{"quality":0.30,"privacy":0.20,"latency":0.15,"cost":0.15,"health":0.20},"constraints":{},"description":"Balance quality, privacy, speed, cost, and health."},
     {"id":"regulated","label":"Regulated / Governed","weights":{"quality":0.20,"privacy":0.30,"latency":0.05,"cost":0.05,"health":0.40},"constraints":{"excludeDegraded":true},"description":"Strongly favor healthy, privacy-compatible providers and reject degraded state."}
   ]
 }
