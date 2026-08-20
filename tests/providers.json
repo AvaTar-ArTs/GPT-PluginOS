@@ -1,0 +1,17 @@
+{
+  "version": "0.2.0-test",
+  "providers": [
+    {"id":"magnific","name":"Magnific","kind":"remote","category":"media","status":"healthy","cost":4,"latency":2,"privacy":2,"quality":9.6,"risk":"external_write","capabilities":["media.image.upscale","media.image.relight","media.image.enhance"]},
+    {"id":"cloudinary","name":"Cloudinary","kind":"remote","category":"media-infrastructure","status":"healthy","cost":2,"latency":4,"privacy":4,"quality":8.8,"risk":"external_write","capabilities":["media.image.upscale","media.asset.upload","media.asset.search","media.asset.visual_search","media.transform.image","media.delivery.cdn"]},
+    {"id":"local-upscaler","name":"Local Upscaler","kind":"local","category":"media","status":"healthy","cost":0,"latency":3,"privacy":5,"quality":7.9,"risk":"read_only","capabilities":["media.image.upscale","media.image.enhance"]},
+    {"id":"product-design","name":"Product Design","kind":"remote","category":"design","status":"healthy","cost":2,"latency":3,"privacy":3,"quality":9.1,"risk":"external_write","capabilities":["design.product.audit","design.product.research","design.prototype.generate","design.qa"]},
+    {"id":"figma","name":"Figma","kind":"remote","category":"design","status":"healthy","cost":2,"latency":4,"privacy":3,"quality":9.0,"risk":"external_write","capabilities":["design.system.edit","design.prototype.edit","design.handoff"]},
+    {"id":"github","name":"GitHub","kind":"remote","category":"development","status":"healthy","cost":1,"latency":4,"privacy":3,"quality":9.3,"risk":"code_change","capabilities":["code.repository.read","code.repository.modify","code.release.prepare"]},
+    {"id":"codex-security","name":"Codex Security","kind":"remote","category":"security","status":"healthy","cost":2,"latency":3,"privacy":3,"quality":9.2,"risk":"read_only","capabilities":["security.code.scan","security.finding.validate","security.threat_model"]},
+    {"id":"semrush","name":"Semrush","kind":"remote","category":"research","status":"degraded","cost":3,"latency":4,"privacy":4,"quality":9.1,"risk":"read_only","capabilities":["research.seo.keyword","research.seo.competitor","research.seo.domain"]},
+    {"id":"sider-scholar","name":"Sider Scholar","kind":"remote","category":"research","status":"healthy","cost":2,"latency":3,"privacy":3,"quality":8.9,"risk":"read_only","capabilities":["research.academic.search","research.paper.read"]},
+    {"id":"google-calendar","name":"Google Calendar","kind":"remote","category":"operations","status":"healthy","cost":0,"latency":5,"privacy":3,"quality":9.0,"risk":"external_write","capabilities":["schedule.event.read","schedule.availability.check","schedule.event.create","schedule.event.update"]},
+    {"id":"stripe","name":"Stripe","kind":"remote","category":"commerce","status":"healthy","cost":2,"latency":5,"privacy":3,"quality":9.4,"risk":"financial","capabilities":["commerce.payment.manage","commerce.product.manage","commerce.subscription.manage"]},
+    {"id":"content-universe","name":"Content Universe","kind":"first_party","category":"provenance","status":"healthy","cost":0,"latency":5,"privacy":5,"quality":9.5,"risk":"read_only","capabilities":["provenance.asset.record","provenance.lineage.query","asset.graph.query"]}
+  ]
+}
